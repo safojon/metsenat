@@ -1,6 +1,7 @@
 <script setup>
 import Navbar from '../components/Navbar/main.vue';
 import CPlayList from '../components/Dashboard/CPlayList.vue';
+import CApexChart from '../components/Dashboard/CApexChart.vue';
 import api from '../api/api'
 import { onMounted, ref } from 'vue'
 
@@ -22,18 +23,25 @@ onMounted(() => {
 
 <template>
   <Navbar />
-  <div class="w-full h-[500px] bg-[rgba(245,245,247,1)] flex justify-center ">
-    <div class="w-[1200px] mt-[48px] justify-between flex">
-      <div class="flex gap-[29px]">
-        <CPlayList text="Jami to‘langan summa" :number="dashboardResult.total_paid"
-          styles="text-[rgba(76,111,255,1)] bg-[rgba(76,111,255,0.1)]" />
-        <CPlayList text="Jami so‘ralgan summa" :number="dashboardResult.total_need"
-          styles="text-[rgba(237,199,0,1)] bg-[rgba(237,199,0,0.1)]" />
-        <CPlayList text="To‘lanishi kerak summa" :number="dashboardResult.total_must_pay"
-          styles="text-[rgba(237,114,0,1)] w-[48px] h-[48px] bg-[rgba(237,114,0,0.1)]" />
+  <div class="w-full h-[500px] bg-[rgba(245,245,247,1)] flex justify-center">
+    <div>
+      <div class="w-[1200px] mt-[48px] justify-between flex">
+        <div class="flex gap-[29px]">
+          <CPlayList text="Jami to‘langan summa" :number="dashboardResult.total_paid"
+            styles="text-[rgba(76,111,255,1)] bg-[rgba(76,111,255,0.1)]" />
+          <CPlayList text="Jami so‘ralgan summa" :number="dashboardResult.total_need"
+            styles="text-[rgba(237,199,0,1)] bg-[rgba(237,199,0,0.1)]" />
+          <CPlayList text="To‘lanishi kerak summa" :number="dashboardResult.total_must_pay"
+            styles="text-[rgba(237,114,0,1)] w-[48px] h-[48px] bg-[rgba(237,114,0,0.1)]" />
+        </div>
+      </div>
+      <div class="mt-10" id="shart">
+        <CApexChart />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
