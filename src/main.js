@@ -11,4 +11,5 @@ const app = createApp(App);
 app.use(router);
 app.component('vue3-autocounter', Vue3Autocounter);
 app.use(VueApexCharts);
-app.mount('#app');
+app.component("apexchart", VueApexCharts);
+app.mount('#app');  

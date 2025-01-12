@@ -4,11 +4,11 @@ import { ref } from 'vue';
 const series = ref([
   {
     name: 'Homiylar',
-    data: [1, 8, 8, 1, 17, 12, 1]
+    data: [5, 9, 9, 7, 6, 9, 15]
   },
   {
     name: 'Talabalar',
-    data: [5, 9, 9, 7, 6, 9, 15]
+    data:  [1, 8, 8, 1, 17, 12, 1]
   }
 ]);
 
@@ -31,10 +31,15 @@ const chartOptions = ref({
       strokeWidth: 2,
     }
   },
-  colors: ['#F591B3', '#36F'],
+  colors: ['#36F', '#F591B3'],
   chart: {
     height: 10,
-    type: 'area'
+    type: 'area',
+    animations: {
+      enabled: true,
+      easing: "easeinout",
+      speed: 10,
+    },
   },
   dataLabels: {
     enabled: false,
@@ -71,6 +76,8 @@ const chartOptions = ref({
 </template>
 
 <style scoped>
+
+
 .apexchart-style ::v-deep(.apexcharts-toolbar) {
   display: none !important;
 }

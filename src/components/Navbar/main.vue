@@ -31,7 +31,7 @@
         <RouterLink to="/" class="rounded-l-[6px] flex items-center justify-center w-[193px] h-[40px] text-[12px] font-medium text-[rgba(51,102,255,0.6)] border-[2px] border-[rgba(221,227,251,1)]" exact-active-class="bg-[rgba(51,102,255,1)] text-white border-0">
           DASHBOARD
         </RouterLink>
-        <RouterLink to="/sponsors" class="flex items-center justify-center w-[193px] h-[40px] text-[12px] font-medium text-[rgba(51,102,255,0.6)] border-[2px] border-[rgba(221,227,251,1)]" exact-active-class="bg-[rgba(51,102,255,1)] text-white border-0">
+        <RouterLink to="/sponsor-list" class="flex items-center justify-center w-[193px] h-[40px] text-[12px] font-medium text-[rgba(51,102,255,0.6)] border-[2px] border-[rgba(221,227,251,1)]" exact-active-class="bg-[rgba(51,102,255,1)] text-white border-0">
           HOMIYLAR
         </RouterLink>
         <RouterLink to="/students" class="rounded-r-[6px] flex items-center justify-center w-[193px] h-[40px] text-[12px] font-medium text-[rgba(51,102,255,0.6)] border-[2px] border-[rgba(221,227,251,1)]" exact-active-class="bg-[rgba(51,102,255,1)] text-white border-0">
