@@ -1,4 +1,17 @@
 <script setup>
+import { ref, defineEmits } from 'vue';
+
+const emit = defineEmits();
+const InputValue = ref('');
+const FilterStatus = ref(false);
+
+const InputChange = () => {
+  emit('InputValue', InputValue.value);
+};
+
+const OpenFilter = () => {
+  emit('FilterStatus', FilterStatus.value = !FilterStatus.value);
+};
 </script>
 
 <template>
@@ -24,7 +37,6 @@
       </div>
     </div>
   </main>
-
   <div class="w-full h-[88px] bg-[#ffffff] justify-center flex items-center">
     <div class="w-[1200px] justify-between flex items-center">
       <div class="flex rounded-[6px]">
@@ -42,10 +54,12 @@
         <div class="w-[284px] h-[40px] relative flex">
           <p class="icon-search absolute text-[rgba(177,177,184,1)] text-[20px] left-[12px] top-[12px]"></p>
           <input class="rounded-[5px] pl-[40px] w-full h-full bg-[rgba(232,232,232,1)] text-[15px] font-normal	"
-            type="text" placeholder="Izlash">
+          v-model="InputValue" @input="InputChange"
+          type="text" placeholder="Izlash">
         </div>
         <div>
           <button
+            @click="OpenFilter"
             class="flex items-center justify-center gap-[10px] w-[123px] h-[40px] bg-[rgba(237,241,253,1)] rounded-[5px] text-[rgba(51,101,252,1)]">
             <p class="icon-filtr"></p>
             <p class="font-medium	text-[14px]">Filter</p>
