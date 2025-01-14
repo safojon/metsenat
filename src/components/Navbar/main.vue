@@ -3,14 +3,9 @@ import { ref, defineEmits } from 'vue';
 
 const emit = defineEmits();
 const InputValue = ref('');
-const FilterStatus = ref(false);
 
 const InputChange = () => {
   emit('InputValue', InputValue.value);
-};
-
-const OpenFilter = () => {
-  emit('FilterStatus', FilterStatus.value = !FilterStatus.value);
 };
 </script>
 
@@ -59,7 +54,6 @@ const OpenFilter = () => {
         </div>
         <div>
           <button
-            @click="OpenFilter"
             class="flex items-center justify-center gap-[10px] w-[123px] h-[40px] bg-[rgba(237,241,253,1)] rounded-[5px] text-[rgba(51,101,252,1)]">
             <p class="icon-filtr"></p>
             <p class="font-medium	text-[14px]">Filter</p>
