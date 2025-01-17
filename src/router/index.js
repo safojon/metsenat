@@ -14,6 +14,11 @@ const router = createRouter({
             component: () => import("../pages/SponsorsPage.vue"),
         },
         {
+            path: "/sponsor/single/:id",
+            name: "sponsor-single",
+            component: () => import("../pages/SponsorSingle.vue"),
+        },
+        {
             path: "/students",
             name: "students",
             component: () => import("../pages/StudentsPage.vue"),

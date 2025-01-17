@@ -1,5 +1,9 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, defineProps } from 'vue';
+
+const props = defineProps({
+  type: Boolean,
+});
 
 const emit = defineEmits();
 const InputValue = ref('');
@@ -10,7 +14,7 @@ const InputChange = () => {
 </script>
 
 <template>
-  <main class="w-full h-[64px] bg-[rgba(255,255,255,1)] flex justify-center items-center">
+  <main :class="type == 'top-buttom' ? '' : type == 'top' ? '' : 'hidden'" class="w-full h-[64px] bg-[rgba(255,255,255,1)] flex justify-center items-center">
     <div class="w-[1200px] justify-between flex items-center">
       <div>
         <img src="../../../public/Logo.svg" alt="">
@@ -32,7 +36,7 @@ const InputChange = () => {
       </div>
     </div>
   </main>
-  <div class="w-full h-[88px] bg-[#ffffff] justify-center flex items-center">
+  <div :class="type == 'top-buttom' ? '' : 'hidden'" class="w-full h-[88px] bg-[#ffffff] justify-center flex items-center">
     <div class="w-[1200px] justify-between flex items-center">
       <div class="flex rounded-[6px]">
         <RouterLink to="/" class="rounded-l-[6px] flex items-center justify-center w-[193px] h-[40px] text-[12px] font-medium text-[rgba(51,102,255,0.6)] border-[2px] border-[rgba(221,227,251,1)]" exact-active-class="bg-[rgba(51,102,255,1)] text-white border-0">

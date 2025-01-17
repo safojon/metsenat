@@ -17,14 +17,36 @@ const Get = async () => {
       params: {
         page: page.value,
         page_size: page_size.value,
-        search: search.value
       }
     })
-    Result.value = data.data
+    Result.value = data.data.results
   } catch (error) {
     console.log(error)
   }
 }
+
+const InputValue = async (newValue) => {
+  search.value = newValue;
+  if (search.value) {
+    try {
+      const response = await api.get('sponsor-list/', {
+        params: {
+          page: page.value,
+          page_size: Result.value.count,
+        }
+      });
+      const data = response.data.results;
+      const filter = data.filter((row) =>
+        row.full_name.toString() === search.value.toString()
+      );
+      Result.value = filter;
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    Get()
+  }
+};
 
 onMounted(() => {
   Get()
@@ -45,7 +67,7 @@ const PageSize = (number) => {
 }
 
 const Next = () => {
-  page.value = page.value == Math.ceil(Result.value.count / 10) ? page.value : page.value + 1;
+  page.value = page.value == Math.ceil(Result.value.count / page_size) ? page.value : page.value + 1;
   Get()
 }
 
@@ -54,13 +76,10 @@ const Back = () => {
   Get()
 }
 
-const InputValue = (newValue) => {
-  search.value = newValue;
-};
 </script>
 
 <template>
-  <Navbar @InputValue="InputValue" />
+  <Navbar type="top-buttom" @InputValue="InputValue" />
   <div class="w-full h-[2000px] bg-[rgba(245,245,247,1)] flex justify-center">
     <div class="w-[1200px] mt-[48px] justify-between flex">
       <div class="w-full">
@@ -91,12 +110,12 @@ const InputValue = (newValue) => {
           </div>
         </div>
         <div class="flex flex-col gap-[12px]">
-          <SponsorList v-for="sponsor in Result.results" :key="sponsor.id" :data="sponsor" />
+          <SponsorList v-for="sponsor in Result" :key="sponsor.id" :data="sponsor" />
         </div>
         <div class="mt-[28px] font-normal text-[15px] flex justify-between ">
           <div>
-            {{ Result.count }} tadan {{ page == 1 ? 1 : (page - 1) * 10 + 1 }}-{{
-              (page ?? 1) == 1 ? 10 : (page) * 10 }}
+            {{ Result.count }} tadan {{ page == 1 ? 1 : (page - 1) * page_size + 1 }}-{{
+              (page ?? 1) == 1 ? page_size : (page) * page_size }}
             ko‘rsatilmoqda
           </div>
           <div class="flex gap-[12px] items-center">
@@ -118,7 +137,7 @@ const InputValue = (newValue) => {
               <button @click="Back" :class="page == 1 ? 'bg-[rgba(223,227,232,1)]' : 'bg-white'"
                 class="icon-angle-down rotate-90 text-[rgba(151,151,151,1)] text-[12px] w-[32px] h-[32px] border-[1px] border-[rgba(223,227,232,1)] rounded-[4px]"></button>
               <button @click="Next"
-                :class="page == Math.ceil(Result.count / 10) ? 'bg-[rgba(223,227,232,1)]' : 'bg-white'"
+                :class="page == Math.ceil(Result.count / page_size) ? 'bg-[rgba(223,227,232,1)]' : 'bg-white'"
                 class="-rotate-90 icon-angle-down text-[rgba(151,151,151,1)] text-[12px] w-[32px] h-[32px] border-[1px] border-[rgba(223,227,232,1)] rounded-[4px]"></button>
             </div>
           </div>

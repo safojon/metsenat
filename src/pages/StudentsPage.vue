@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar/main.vue';
 </script>
 
 <template>
-  <Navbar />
+  <Navbar type="top-buttom"/>
   <div class="w-full h-[2000px] bg-[rgba(245,245,247,1)] flex justify-center">
     <div class="w-[1200px] mt-[48px] justify-between flex">
       <div class="flex">
