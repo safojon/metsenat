@@ -58,6 +58,7 @@ const InputChange = () => {
         </div>
         <div>
           <button
+            @click="emit('FilterStatus')"
             class="flex items-center justify-center gap-[10px] w-[123px] h-[40px] bg-[rgba(237,241,253,1)] rounded-[5px] text-[rgba(51,101,252,1)]">
             <p class="icon-filtr"></p>
             <p class="font-medium	text-[14px]">Filter</p>

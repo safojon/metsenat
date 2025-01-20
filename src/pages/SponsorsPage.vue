@@ -10,16 +10,29 @@ const search = ref('');
 const page = ref(1);
 const page_size = ref(10);
 const page_status = ref(false);
+const page_count = ref(0);
+const filterStatus = ref(false);
+const filter = ref(false);
 
 const Get = async () => {
   try {
-    const data = await api.get('sponsor-list/', {
+    const response = await api.get('sponsor-list/', {
       params: {
         page: page.value,
         page_size: page_size.value,
       }
     })
-    Result.value = data.data.results
+    const data = response.data.results;
+    if (filter.value) {
+      const filtered = data.filter((row) =>
+        row.get_status_display.toString().toLowerCase()
+        === filter.value.toString().toLowerCase()
+      );
+      Result.value = filtered;
+    } else {
+      Result.value = data;
+      page_count.value = response.data.count;
+    }
   } catch (error) {
     console.log(error)
   }
@@ -37,7 +50,8 @@ const InputValue = async (newValue) => {
       });
       const data = response.data.results;
       const filter = data.filter((row) =>
-        row.full_name.toString() === search.value.toString()
+        row.full_name.toString().toLowerCase()
+        === search.value.toString().toLowerCase()
       );
       Result.value = filter;
     } catch (error) {
@@ -76,10 +90,19 @@ const Back = () => {
   Get()
 }
 
+const FilterStatus = () => {
+  filterStatus.value = !filterStatus.value;
+}
+
+const Filter = (value) => {
+  filter.value = value;
+  Get()
+}
+
 </script>
 
 <template>
-  <Navbar type="top-buttom" @InputValue="InputValue" />
+  <Navbar type="top-buttom" @InputValue="InputValue" @FilterStatus="FilterStatus"/>
   <div class="w-full h-[2000px] bg-[rgba(245,245,247,1)] flex justify-center">
     <div class="w-[1200px] mt-[48px] justify-between flex">
       <div class="w-full">
@@ -114,7 +137,7 @@ const Back = () => {
         </div>
         <div class="mt-[28px] font-normal text-[15px] flex justify-between ">
           <div>
-            {{ Result.count }} tadan {{ page == 1 ? 1 : (page - 1) * page_size + 1 }}-{{
+            {{ page_count }} tadan {{ page == 1 ? 1 : (page - 1) * page_size + 1 }}-{{
               (page ?? 1) == 1 ? page_size : (page) * page_size }}
             ko‘rsatilmoqda
           </div>
@@ -123,7 +146,7 @@ const Back = () => {
             <button @click="OpenPageSize"
               class="rounded-[4px] cursor-pointer font-normal	text-[15px] w-[54px] h-[32px] border-[1px] border-[rgba(223,227,232,1)] bg-[rgba(255,255,255,1)] flex justify-center items-center gap-[7px]">
               {{ page_size }}
-              <span class="icon-angle-down text-[rgba(29,29,31,1)] text-[9px]"></span>
+              <span :class="page_status ? `rotate-180` : ''" class="icon-angle-down text-[rgba(29,29,31,1)] text-[9px]"></span>
             </button>
             <div v-if="page_status"
               class="w-[54px] h-auto border-[1px] border-[rgba(223,227,232,1)] bg-[rgba(255,255,255,1)] absolute z-50 mt-[190px] ml-[75px] flex flex-col">
@@ -145,6 +168,7 @@ const Back = () => {
       </div>
     </div>
   </div>
+  <SponsorFilter v-if="filterStatus" @ClouseFilter="FilterStatus" @Filter="Filter" :filter="filter"/>
 </template>
 
 <style scoped></style>

@@ -1,5 +1,6 @@
 <script setup>
 import Navbar from '../components/Navbar/main.vue';
+import SponsorEdit from '../components/Sponsors/SponsorEdit.vue';
 import api from '../api/api';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -7,6 +8,7 @@ import { useRoute } from 'vue-router';
 let Result = ref({});
 const route = useRoute();
 const id = ref(route.params.id);
+const sponserEditStatus = ref(false);
 
 const Get = async () => {
   try {
@@ -33,6 +35,10 @@ onMounted(() => {
 function Format(number) {
   return Number(number).toLocaleString('en-US').replace(/,/g, " ");
 }
+
+const SponserEditStatus = () => {
+  sponserEditStatus.value = !sponserEditStatus.value;
+}
 </script>
 
 <template>
@@ -52,8 +58,9 @@ function Format(number) {
         <div class="flex items-center justify-between">
           <div class="font-bold text-[rgba(40,41,61,1)] text-[24px]">Homiy haqida</div>
           <div class=""><button
+              @click="SponserEditStatus"
               class="w-[166px] h-[42px] rounded-[5px] font-medium	 bg-[rgba(237,241,253,1)] text-[rgba(51,101,252,1)] text-[14px] flex items-center justify-center"><span
-                class="icon-edit mr-[7px] text-[22px]"></span> Tahrirlash</button></div>
+                class="icon-edit mr-[7px] text-[22px]"></span>Tahrirlash</button></div>
         </div>
         <div class="flex gap-[20px] mt-[32px] h-[64px]">
           <div
@@ -67,7 +74,7 @@ function Format(number) {
           <div></div>
         </div>
         <div class="flex gap-[227px] mt-[24px]">
-          <div class="text-[rgba(181,181,195,1)] font-medium text-[12px] w-[147px]">
+          <div class="text-[rgba(181,181,195,1)] font-medium text-[12px] w-[160px]">
             TELEFON RAQAM
             <p v-if="!Result.phone" class="mt-[15px] w-[100px] h-[12px] bg-slate-200 animate-bounce"></p>
             <p v-if="Result.phone" class="text-[rgba(33,33,33,1)] mt-[5px] text-[16px] font-medium">{{ Result.phone }}
@@ -86,6 +93,7 @@ function Format(number) {
       </div>
     </div>
   </div>
+  <SponsorEdit v-if="sponserEditStatus" @ClouseEdit="SponserEditStatus" :data="Result"/>
 </template>
 
 <style></style>
