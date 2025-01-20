@@ -22,6 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
+  q
   <Navbar type="top-buttom"/>
   <div class="w-full h-[1000px] bg-[rgba(245,245,247,1)] flex justify-center">
     <div>
