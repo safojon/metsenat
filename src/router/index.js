@@ -19,9 +19,19 @@ const router = createRouter({
             component: () => import("../pages/SponsorSingle.vue"),
         },
         {
-            path: "/students",
-            name: "students",
+            path: "/students-list/",
+            name: "students-list",
             component: () => import("../pages/StudentsPage.vue"),
+        },
+        {
+            path: "/student/add",
+            name: "student-add",
+            component: () => import("../pages/StudentAdd.vue"),
+        },
+        {
+            path: "/student/single/:id",
+            name: "student-single",
+            component: () => import("../pages/StudentSingle.vue"),
         },
     ],
     scrollBehavior(to, from, savedPosition) {

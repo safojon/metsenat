@@ -38,6 +38,7 @@ function Format(number) {
 
 const SponserEditStatus = () => {
   sponserEditStatus.value = !sponserEditStatus.value;
+  Get()
 }
 </script>
 
@@ -54,7 +55,7 @@ const SponserEditStatus = () => {
   </main>
   <div class="w-full h-full bg-[rgba(245,245,247,1)] flex justify-center items-center">
     <div class="w-[1200px] h-[2000px] flex flex-col items-center  mt-[40px]">
-      <div class="w-[793px] h-[259px] bg-[rgba(255,255,255,1)] rounded-[12px] p-[32px]">
+      <div class="w-[793px] h-auto bg-[rgba(255,255,255,1)] rounded-[12px] p-[32px]">
         <div class="flex items-center justify-between">
           <div class="font-bold text-[rgba(40,41,61,1)] text-[24px]">Homiy haqida</div>
           <div class=""><button
@@ -85,6 +86,12 @@ const SponserEditStatus = () => {
             <p v-if="!Result.phone" class="mt-[15px] w-[100px] h-[12px] bg-slate-200 animate-bounce"></p>
             <p v-if="Result.sum" class="text-[rgba(33,33,33,1)] mt-[5px] text-[16px] font-medium">{{ Format(Result.sum)
               }} UZS</p>
+          </div>
+        </div>
+        <div v-if="Result.firm" class="mt-[24px]">
+          <div class="text-[rgba(181,181,195,1)] font-medium text-[12px] w-[132px]">
+            TASHKILOT NOMI
+            <p v-if="Result.sum" class="text-[rgba(33,33,33,1)] mt-[5px] text-[16px] font-medium">{{ Result.firm}}</p>
           </div>
         </div>
       </div>
